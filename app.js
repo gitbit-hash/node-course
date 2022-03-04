@@ -1,3 +1,5 @@
+const addNote = require("./notes");
+
 const yargs = require("yargs");
 
 // Customize yargs version
@@ -19,8 +21,8 @@ yargs.command({
       type: "string",
     },
   },
-  handler: function (argv) {
-    console.log(`Title: ${argv.title}`, `Body: ${argv.body}`);
+  handler(argv) {
+    addNote(argv.title, argv.body);
   },
 });
 
@@ -28,7 +30,7 @@ yargs.command({
 yargs.command({
   command: "remove",
   describe: "remove a note",
-  handler: function () {
+  handler() {
     console.log("remove a note");
   },
 });
@@ -37,7 +39,7 @@ yargs.command({
 yargs.command({
   command: "read",
   describe: "read a note",
-  handler: function () {
+  handler() {
     console.log("read a note");
   },
 });
@@ -46,7 +48,7 @@ yargs.command({
 yargs.command({
   command: "list",
   describe: "list notes",
-  handler: function () {
+  handler() {
     console.log("list notes");
   },
 });
