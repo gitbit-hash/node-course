@@ -44,4 +44,18 @@ const loadNotes = () => {
   }
 };
 
-module.exports = addNote;
+const removeNote = (title) => {
+  // load existing notes
+  const notes = loadNotes();
+
+  // keep the notes with no matching title
+  const noteToKeep = notes.filter((note) => note.title !== title);
+
+  // save the notes back
+  saveNotes(noteToKeep);
+};
+
+module.exports = {
+  addNote,
+  removeNote,
+};
