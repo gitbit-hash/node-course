@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gitbit-hash/node-course/issues"
   },
-  "homepage": "https://github.com/gitbit-hash/node-course#readme"
+  "homepage": "https://github.com/gitbit-hash/node-course#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
