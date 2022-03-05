@@ -7,10 +7,10 @@ const addNote = (title, body) => {
   const notes = loadNotes();
 
   // check if any duplicate note's title
-  const duplicateNote = notes.filter((note) => note.title === title);
+  const duplicateNote = notes.find((note) => note.title === title);
 
   // if no duplicate note, push the new note to the array
-  if (duplicateNote.length === 0) {
+  if (!duplicateNote) {
     notes.push({
       title,
       body,
@@ -78,8 +78,20 @@ const listNotes = () => {
   });
 };
 
+const readNote = (title) => {
+  const notes = loadNotes();
+  const foundNote = notes.find((note) => note.title === title);
+
+  if (!foundNote) {
+    console.log(chalk.bgRed("No note has been found"));
+  }
+
+  console.log(`${chalk.green(foundNote.title)}: ${foundNote.body}`);
+};
+
 module.exports = {
   addNote,
   removeNote,
   listNotes,
+  readNote,
 };
