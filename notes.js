@@ -65,7 +65,21 @@ const removeNote = (title) => {
   }
 };
 
+const listNotes = () => {
+  const notes = loadNotes();
+  if (notes.length === 0) {
+    console.log(chalk.bgRed("No notes have been found"));
+  }
+
+  console.log(chalk.bgGreen("Your Notes"));
+
+  notes.forEach((note, idx) => {
+    console.log(`${idx + 1}- ${chalk.green(note.title)}`);
+  });
+};
+
 module.exports = {
   addNote,
   removeNote,
+  listNotes,
 };
