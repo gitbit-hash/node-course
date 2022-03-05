@@ -1,22 +1,26 @@
 const fs = require("fs");
 
+const chalk = require("chalk");
+
 const addNote = (title, body) => {
   //load notes
   const notes = loadNotes();
 
   // check if any duplicate note's title
-  const duplicateNotes = notes.filter((note) => note.title === title);
+  const duplicateNote = notes.filter((note) => note.title === title);
 
   // if no duplicate note, push the new note to the array
-  if (duplicateNotes.length === 0) {
+  if (duplicateNote.length === 0) {
     notes.push({
       title,
       body,
     });
+    console.log(chalk.bgGreen("A note has been added"));
+
     // save the new note
     saveNotes(notes);
   } else {
-    console.log("Note title was taken");
+    console.log(chalk.bgRed("Note title was taken"));
   }
 };
 
@@ -49,10 +53,16 @@ const removeNote = (title) => {
   const notes = loadNotes();
 
   // keep the notes with no matching title
-  const noteToKeep = notes.filter((note) => note.title !== title);
+  const notesToKeep = notes.filter((note) => note.title !== title);
 
-  // save the notes back
-  saveNotes(noteToKeep);
+  if (notesToKeep.length !== notes.length) {
+    console.log(chalk.bgGreen("Note removed!"));
+
+    // save the notes back
+    saveNotes(notesToKeep);
+  } else {
+    console.log(chalk.bgRed("No note found!"));
+  }
 };
 
 module.exports = {
