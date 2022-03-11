@@ -9,14 +9,14 @@ const geoCode = (address, callback) => {
 
 	axios
 		.get(url)
-		.then((res) => {
-			if (res.data.features.length === 0) {
+		.then(({ data: { features } }) => {
+			if (features.length === 0) {
 				callback('Cannot find location, try another seearch!', undefined);
 			} else {
 				callback(undefined, {
-					longitude: res.data.features[0].center[0],
-					latitude: res.data.features[0].center[1],
-					location: res.data.features[0].place_name,
+					longitude: features[0].center[0],
+					latitude: features[0].center[1],
+					location: features[0].place_name,
 				});
 			}
 		})
