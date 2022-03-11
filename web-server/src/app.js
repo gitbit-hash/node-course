@@ -4,6 +4,9 @@ const hbs = require('hbs');
 
 const app = express();
 
+const geoCode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(process.cwd(), './templates/views'));
 
@@ -34,17 +37,31 @@ app.get('/help', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-	if (!req.query.address) {
+	const address = req.query.address;
+
+	if (!address) {
 		return res.send({
 			error: 'You must provide an address',
 		});
-	}
+	} else {
+		geoCode(address, (error, { latitude, longitude, location }) => {
+			if (error) {
+				return res.send({ error });
+			}
 
-	res.send({
-		location: 'Cairo',
-		forcast: "It's sunny",
-		address: req.query.address,
-	});
+			forecast(latitude, longitude, (error, forcast) => {
+				if (error) {
+					return res.send({ error });
+				}
+
+				res.send({
+					address,
+					location,
+					forcast,
+				});
+			});
+		});
+	}
 });
 
 app.get('/help/*', (req, res) => {
