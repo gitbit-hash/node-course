@@ -40,6 +40,22 @@ app.get('/weather', (req, res) => {
 	});
 });
 
+app.get('/help/*', (req, res) => {
+	res.render('404', {
+		title: '404',
+		name: 'Muhammad Salah',
+		errorMessage: 'Help article not found',
+	});
+});
+
+app.get('*', (req, res) => {
+	res.render('404', {
+		title: '404',
+		name: 'Muhammad Salah',
+		errorMessage: 'This page is not available',
+	});
+});
+
 app.listen(3000, () => {
 	console.log('app is running at port 3000');
 });
