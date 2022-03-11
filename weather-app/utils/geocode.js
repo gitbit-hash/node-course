@@ -1,6 +1,6 @@
-const axios = require("axios").default;
+const axios = require('axios').default;
 
-require("dotenv").config();
+require('dotenv').config();
 
 const geoCode = (address, callback) => {
 	const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
@@ -11,13 +11,17 @@ const geoCode = (address, callback) => {
 		.get(url)
 		.then((res) => {
 			if (res.data.features.length === 0) {
-				callback("Cannot find location, try another seearch!", undefined);
+				callback('Cannot find location, try another seearch!', undefined);
 			} else {
-				callback(undefined, res.data);
+				callback(undefined, {
+					longitude: res.data.features[0].center[0],
+					latitude: res.data.features[0].center[1],
+					location: res.data.features[0].place_name,
+				});
 			}
 		})
-		.catch(() =>
-			callback("Unable to connect to location services!", undefined)
+		.catch((e) =>
+			callback('Unable to connect to location services!', undefined)
 		);
 };
 
