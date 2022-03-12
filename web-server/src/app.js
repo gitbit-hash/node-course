@@ -78,7 +78,7 @@ app.get('*', (req, res) => {
 	res.render('404', {
 		title: '404',
 		name: 'Muhammad Salah',
-		errorMessage: 'This page is not available',
+		errorMessage: 'This page is not available!',
 	});
 });
 
